@@ -10,13 +10,23 @@ export default function Vans() {
             .catch(error => console.error("Error fetching vans data:", error));
     }, []);
 
+    const vanElements = vans.map(van => (
+        <div key={van.id} className="van-tile">
+            <img src={van.imageUrl} />
+            <div className="van-info">
+                <h3>{van.name}</h3>
+                <p>${van.price}<span>/day</span></p>
+            </div>
+            <i className={`van-type ${van.type} selected`}>{van.type}</i>
+        </div>
+    ))
+
     return (
-        <div>
-            <ul>
-                {vans.map(van => (
-                    <li key={van.id}>{van.name}</li>
-                ))}
-            </ul>
+        <div className="van-list-container">
+            <h1>Explore our van options</h1>
+            <div className="van-list">
+                {vanElements}
+            </div>
         </div>
     )
 }
