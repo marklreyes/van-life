@@ -61,6 +61,12 @@ footer {
     font-weight: 500;
 }
 
+a.active-link {
+	font-weight: bold;
+	text-decoration: underline;
+	color: #161616;
+}
+
 .link-button {
     display: inline-block;
     text-align: center;
