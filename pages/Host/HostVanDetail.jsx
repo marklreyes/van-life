@@ -4,6 +4,7 @@ import { useParams, Link, Outlet, NavLink } from "react-router-dom"
 export default function HostVanDetail() {
 	const { id } = useParams()
 	const [currentVan, setCurrentVan] = React.useState(null)
+    const [currentVanDetail, setCurrentVanDetail] = React.useState(null);
 
 	const activeStyle = {
         fontWeight: "bold",
@@ -14,7 +15,10 @@ export default function HostVanDetail() {
 	React.useEffect(() => {
 		fetch(`/api/host/vans/${id}`)
 			.then(res => res.json())
-			.then(data => setCurrentVan(data.vans))
+			.then(data => {
+				setCurrentVan(data.vans)
+				setCurrentVanDetail(data.vans)
+		})
 	}, [])
 
 	if (!currentVan) {
@@ -47,7 +51,7 @@ export default function HostVanDetail() {
 					<NavLink style={({isActive}) => isActive ? activeStyle : null} to="pricing">Pricing</NavLink>
 					<NavLink style={({isActive}) => isActive ? activeStyle : null} to="photos">Photos</NavLink>
                 </nav>
-                <Outlet/>
+                <Outlet context={[currentVanDetail, setCurrentVanDetail]} />
             </div>
         </section>
 	)
