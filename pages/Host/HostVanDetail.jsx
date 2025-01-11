@@ -4,7 +4,6 @@ import { useParams, Link, Outlet, NavLink } from "react-router-dom"
 export default function HostVanDetail() {
 	const { id } = useParams()
 	const [currentVan, setCurrentVan] = React.useState(null)
-    const [currentVanDetail, setCurrentVanDetail] = React.useState(null);
 
 	const activeStyle = {
         fontWeight: "bold",
@@ -17,7 +16,6 @@ export default function HostVanDetail() {
 			.then(res => res.json())
 			.then(data => {
 				setCurrentVan(data.vans)
-				setCurrentVanDetail(data.vans)
 		})
 	}, [])
 
@@ -51,7 +49,7 @@ export default function HostVanDetail() {
 					<NavLink style={({isActive}) => isActive ? activeStyle : null} to="pricing">Pricing</NavLink>
 					<NavLink style={({isActive}) => isActive ? activeStyle : null} to="photos">Photos</NavLink>
                 </nav>
-                <Outlet context={[currentVanDetail, setCurrentVanDetail]} />
+                <Outlet context={{currentVan}} />
             </div>
         </section>
 	)
