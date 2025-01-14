@@ -1,11 +1,11 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { getHostVans } from "../../api"
 
 export default function HostVans() {
-    const [vans, setVans] = React.useState([])
-    const [loading, setLoading] = React.useState(false)
-    const [error, setError] = React.useState(null)
+    const [vans, setVans] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
 
     useEffect(() => {
         async function loadVans() {
