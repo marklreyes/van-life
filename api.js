@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore, collection, getDocs, doc, getDoc } from "firebase/firestore/lite"
+import { getFirestore, collection, getDocs, doc, getDoc, query, where } from "firebase/firestore/lite"
 
 const firebaseConfig = {
   apiKey: "AIzaSyB8S_3CFjxrGRSvVZe01Qq8lwpI5lAaESg",
@@ -33,6 +33,16 @@ export async function getVan(id) {
     }
 }
 
+export async function getHostVans() {
+	const q = query(vansCollectionRef, where("hostId", "==", "123"))
+	const snapshot = await getDocs(q)
+	const vans = snapshot.docs.map(doc => ({
+		...doc.data(),
+		id: doc.id
+	}))
+	return vans
+}
+
 // A function whose only purpose is to delay execution
 // for the specified # of milliseconds when used w/ `await`
 // e.g. inside an async function:
@@ -55,19 +65,19 @@ function sleep(ms) {
 //     return data.vans
 // }
 
-export async function getHostVans(id) {
-    const url = id ? `/api/host/vans/${id}` : "/api/host/vans"
-    const res = await fetch(url)
-    if (!res.ok) {
-        throw {
-            message: "Failed to fetch vans",
-            statusText: res.statusText,
-            status: res.status
-        }
-    }
-    const data = await res.json()
-    return data.vans
-}
+// export async function getHostVans(id) {
+//     const url = id ? `/api/host/vans/${id}` : "/api/host/vans"
+//     const res = await fetch(url)
+//     if (!res.ok) {
+//         throw {
+//             message: "Failed to fetch vans",
+//             statusText: res.statusText,
+//             status: res.status
+//         }
+//     }
+//     const data = await res.json()
+//     return data.vans
+// }
 
 export async function loginUser(creds) {
     const res = await fetch("/api/login",
