@@ -1,3 +1,18 @@
+import { initializeApp } from "firebase/app"
+import { getFirestore } from "firebase/firestore/lite"
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB8S_3CFjxrGRSvVZe01Qq8lwpI5lAaESg",
+  authDomain: "vanlife-9c615.firebaseapp.com",
+  projectId: "vanlife-9c615",
+  storageBucket: "vanlife-9c615.firebasestorage.app",
+  messagingSenderId: "383044735257",
+  appId: "1:383044735257:web:01d8a77935ff913aa6b588"
+}
+
+const app = initializeApp(firebaseConfig)
+const db = getFirestore(app)
+
 // A function whose only purpose is to delay execution
 // for the specified # of milliseconds when used w/ `await`
 // e.g. inside an async function:
