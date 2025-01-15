@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite"
+import { getFirestore, collection, getDocs, doc, getDoc } from "firebase/firestore/lite"
 
 const firebaseConfig = {
   apiKey: "AIzaSyB8S_3CFjxrGRSvVZe01Qq8lwpI5lAaESg",
@@ -22,6 +22,15 @@ export async function getVans() {
 		id: doc.id
 	}))
 	return vans
+}
+
+export async function getVan(id) {
+    const docRef = doc(db, "vans", id)
+    const snapshot = await getDoc(docRef)
+    return {
+        ...snapshot.data(),
+        id: snapshot.id
+    }
 }
 
 // A function whose only purpose is to delay execution
