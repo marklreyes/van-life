@@ -30,12 +30,12 @@ export default function HostVanDetail() {
         loadVans()
     }, [id])
 
-    if (loading) {
-        return <h1>Loading...</h1>
+	if (loading) {
+        return <h1 aria-live="polite">Loading...</h1>
     }
 
     if (error) {
-        return <h1>There was an error: {error.message}</h1>
+        return <h1 aria-live="assertive">There was an error: {error.message}</h1>
     }
 
 	return (
@@ -45,27 +45,28 @@ export default function HostVanDetail() {
                 relative="path"
                 className="back-button"
             >&larr; <span>Back to all vans</span></Link>
-
-            <div className="host-van-detail-layout-container">
-                <div className="host-van-detail">
-                    <img src={currentVan.imageUrl} />
-                    <div className="host-van-detail-info-text">
-                        <i
-                            className={`van-type van-type-${currentVan.type}`}
-                        >
-                            {currentVan.type}
-                        </i>
-                        <h3>{currentVan.name}</h3>
-                        <h4>${currentVan.price}/day</h4>
-                    </div>
-                </div>
+			{currentVan &&
+				<div className="host-van-detail-layout-container">
+				<div className="host-van-detail">
+					<img src={currentVan.imageUrl} />
+					<div className="host-van-detail-info-text">
+						<i
+							className={`van-type van-type-${currentVan.type}`}
+						>
+							{currentVan.type}
+						</i>
+						<h3>{currentVan.name}</h3>
+						<h4>${currentVan.price}/day</h4>
+					</div>
+				</div>
 				<nav className="host-van-detail-nav">
 					<NavLink end style={({isActive}) => isActive ? activeStyle : null} to=".">Details</NavLink>
 					<NavLink style={({isActive}) => isActive ? activeStyle : null} to="pricing">Pricing</NavLink>
 					<NavLink style={({isActive}) => isActive ? activeStyle : null} to="photos">Photos</NavLink>
-                </nav>
-                <Outlet context={{currentVan}} />
-            </div>
+				</nav>
+				<Outlet context={{currentVan}} />
+			</div>
+			}
         </section>
 	)
 }
